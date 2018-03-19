@@ -56,6 +56,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        return response()->json(['data' => $user], 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, User $user)
     {
         $rules = [
