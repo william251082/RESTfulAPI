@@ -7,7 +7,7 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class BuyerProductController extends ApiController
+class BuyerSellerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,13 @@ class BuyerProductController extends ApiController
      */
     public function index(Buyer $buyer)
     {
-        $products = $buyer->transactions()->with('product')
+        $sellers = $buyer->transactions()->with('product.seller')
             ->get()
-            ->pluck('product');
+            ->pluck('product.seller')
+            //We can't have repeated sellers
+            ->unique('id')
+            ->values();
 
-        return $this->showAll($products);
+        return $this->showAll($sellers);
     }
 }
