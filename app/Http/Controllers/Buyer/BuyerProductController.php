@@ -16,7 +16,7 @@ class BuyerProductController extends ApiController
      */
     public function index(Buyer $buyer)
     {
-        $products = $buyer->transactions()->with('products')->get();
+        $products = $buyer->transactions()->with('product')->get();
 
         return $this->showAll($products);
     }
